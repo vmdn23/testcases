@@ -1,4 +1,4 @@
->>> def print_square = __import__("4-print_square.py").print_square
+>>> print_square = __import__("4-print_square").print_square
 
 =======================================================================
 Traceback (most recent call last):

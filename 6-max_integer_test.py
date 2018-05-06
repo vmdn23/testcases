@@ -28,11 +28,24 @@ class TestMaxInteger(unittest.TestCase):
         x = 5
         self.assertTrue(max_integer([1, x]) == x)
 
+    def test_same_entry(self):
+        '''
+        Test to check max int if same
+        '''
+        a = 50
+        self.assertEqual(max_integer([a, a, a, a]), a)
+
     def test_float_integer(self):
         '''
         Test to see if float is max integer
         '''
         self.assertEqual(max_integer([4.0, 3, 2]), 4.0)
+
+    def test_one_entry(self):
+        '''
+        Test to check if only one entry
+        '''
+        self.assertTrue(max_integer([10]))
 
     def test_negative_integer(self):
         '''

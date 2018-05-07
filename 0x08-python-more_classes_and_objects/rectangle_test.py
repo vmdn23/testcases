@@ -158,6 +158,7 @@ class RectangleTest(unittest.TestCase):
         # Tests the __str__ method
         rect = Rectangle(4, 2)
         rep = "####\n####\n"
+        rep1 = "****\n****\n"
         rep2 = "[][][][]\n[][][][]\n"
         self.assertEqual(str(rect), rep)
         Rectangle.print_symbol = []
@@ -165,6 +166,8 @@ class RectangleTest(unittest.TestCase):
             self.assertEqual(str(rect), rep2)
         except:
             self.fail("cast print_symbol into a string before printing it")
+        rect.print_symbol = '*'
+        self.assertEqual(str(rect), rep1)
 
     def test_repr(self):
         # Tests the __repr__ method
@@ -197,10 +200,27 @@ class RectangleTest(unittest.TestCase):
     @unittest.skipIf('square' not in dir(Rectangle),
                     'square method must be implemented before testing')
     def test_square(self):
-        # Test class method square
+        # Test class creator method square
         sqr = Rectangle.square(size=2)
         self.assertEqual(sqr.width, 2)
         self.assertEqual(sqr.height, 2)
         self.assertEqual(Rectangle.number_of_instances, 1)
         del sqr
         self.assertEqual(Rectangle.number_of_instances, 0)
+
+    @unittest.skipIf('bigger_or_equal' not in dir(Rectangle),
+                    'bigger_or_equal must be implemented before testign')
+    def test_bigger_or_equal(self):
+        # Testing comparison method
+        rect1 = Rectangle(8, 4)
+        rect2 = Rectangle(2, 3)
+        self.assertEquals(Rectangle.bigger_or_equal(rect1, rect2), rect1)
+        with self.assertRaises(TypeError) as cm:
+            Rectangle.bigger_or_equal(rect1, 5)
+        ex = cm.exception
+        self.assertEquals(str(ex), "rect_2 must be an instance of Rectangle")
+
+        with self.assertRaises(TypeError) as cm:
+            Rectangle.bigger_or_equal(5, rect2)
+        ex = cm.exception
+        self.assertEqual(str(ex), "rect_1 must be an instance of Rectangle")
